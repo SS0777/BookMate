@@ -1,0 +1,37 @@
+{% extends "books/base.html" %}
+
+{% block title %}검색 결과: {{ query }}{% endblock %}
+
+{% block content %}
+    <h2>검색 결과: "{{ query }}"</h2>
+    
+    {% if results %}
+        <div class="search-results">
+            {% for book in results %}
+                <div class="search-item">
+                    <div class="search-image">
+                        {% if book.thumbnail %}
+                            <img src="{{ book.thumbnail }}" alt="{{ book.title }}">
+                        {% else %}
+                            <div class="no-image">이미지 없음</div>
+                        {% endif %}
+                    </div>
+                    <div class="search-info">
+                        <h3><a href="{% url 'books:api_book_detail' book.id %}">{{ book.title }}</a></h3>
+                        <p class="author">저자: {{ book.authors|join:", " }}</p>
+                        {% if book.categories %}
+                            <p class="category">카테고리: {{ book.categories|join:", " }}</p>
+                        {% endif %}
+                        {% if book.rating %}
+                            <p class="rating">평점: {{ book.rating }}</p>
+                        {% endif %}
+                        <p class="description">{{ book.description }}</p>
+                        <a href="{% url 'books:api_book_detail' book.id %}" class="view-button">자세히 보기</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-results">검색 결과가 없습니다.</p>
+    {% endif %}
+{% endblock %}

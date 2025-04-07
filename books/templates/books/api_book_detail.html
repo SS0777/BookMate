@@ -1,0 +1,68 @@
+{% extends "books/base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    {% if book %}
+        <div class="book-detail">
+            <div class="book-image">
+                {% if book.thumbnail %}
+                    <img src="{{ book.thumbnail }}" alt="{{ book.title }}">
+                {% else %}
+                    <div class="no-image">이미지 없음</div>
+                {% endif %}
+            </div>
+            <div class="book-info">
+                <h2>{{ book.title }}</h2>
+                {% if book.subtitle %}
+                    <h3 class="subtitle">{{ book.subtitle }}</h3>
+                {% endif %}
+                <p class="author">저자: {{ book.authors|join:", " }}</p>
+                <p class="publisher">출판사: {{ book.publisher }} ({{ book.published_date }})</p>
+                
+                {% if book.categories %}
+                    <p class="category">카테고리: {{ book.categories|join:", " }}</p>
+                {% endif %}
+                
+                {% if book.rating %}
+                    <p class="rating">평점: {{ book.rating }} ({{ book.ratings_count }}명 평가)</p>
+                {% endif %}
+                
+                {% if book.page_count %}
+                    <p class="pages">페이지: {{ book.page_count }}</p>
+                {% endif %}
+                
+                <div class="description">
+                    <h3>책 소개</h3>
+                    <p>{{ book.description|linebreaks }}</p>
+                </div>
+                
+                <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
+            </div>
+        </div>
+        
+        {% if related_books %}
+            <div class="related-books">
+                <h3>관련 책 추천</h3>
+                <div class="books">
+                    {% for related in related_books %}
+                        <div class="book-item">
+                            <a href="{% url 'books:api_book_detail' related.id %}">
+                                {% if related.thumbnail %}
+                                    <img src="{{ related.thumbnail }}" alt="{{ related.title }}">
+                                {% else %}
+                                    <div class="no-image">이미지 없음</div>
+                                {% endif %}
+                                <h4>{{ related.title }}</h4>
+                                <p class="author">{{ related.authors|join:", " }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>책 정보를 불러올 수 없습니다.</p>
+        <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
+    {% endif %}
+{% endblock %}

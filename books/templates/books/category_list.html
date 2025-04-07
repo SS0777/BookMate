@@ -1,0 +1,28 @@
+{% extends "books/base.html" %}
+
+{% block title %}베스트셀러{% endblock %}
+
+{% block content %}
+    <h2>전체 베스트셀러</h2>
+    <div class="bestseller-list">
+        {% for book in bestsellers %}
+            <div class="book-item">
+                <a href="{% url 'books:api_book_detail' book.id %}">
+                    {% if book.thumbnail %}
+                        <img src="{{ book.thumbnail }}" alt="{{ book.title }}">
+                    {% else %}
+                        <div class="no-image">이미지 없음</div>
+                    {% endif %}
+                    <h3>{{ book.title }}</h3>
+                    <p class="author">{{ book.authors|join:", " }}</p>
+                    {% if book.rating %}
+                        <p class="rating">평점: {{ book.rating }}</p>
+                    {% endif %}
+                </a>
+            </div>
+        {% empty %}
+            <p>베스트셀러 정보를 가져올 수 없습니다.</p>
+        {% endfor %}
+    </div>
+    
+{% endblock %}

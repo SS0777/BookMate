@@ -1,0 +1,48 @@
+{% extends "books/base.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    <div class="book-detail">
+        <div class="book-image">
+            {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+            {% else %}
+                <div class="no-image">이미지 없음</div>
+            {% endif %}
+        </div>
+        <div class="book-info">
+            <h2>{{ book.title }}</h2>
+            <p class="author">저자: {{ book.author }}</p>
+            <p class="category">카테고리: <a href="{{ book.category.get_absolute_url }}">{{ book.category.name }}</a></p>
+            <p class="rating">평점: {{ book.rating }}</p>
+            <p class="published">출판일: {{ book.published }}</p>
+            <div class="description">
+                <h3>책 소개</h3>
+                <p>{{ book.description|linebreaks }}</p>
+            </div>
+            <a href="{% url 'books:book_list' %}" class="back-button">목록으로 돌아가기</a>
+        </div>
+    </div>
+    
+    {% if related_books %}
+        <div class="related-books">
+            <h3>관련 책 추천</h3>
+            <div class="books">
+                {% for related in related_books %}
+                    <div class="book-item">
+                        <a href="{% url 'books:api_book_detail' related.id %}">
+                            {% if related.thumbnail %}
+                                <img src="{{ related.thumbnail }}" alt="{{ related.title }}">
+                            {% else %}
+                                <div class="no-image">이미지 없음</div>
+                            {% endif %}
+                            <h4>{{ related.title }}</h4>
+                            <p class="author">{{ related.authors|join:", " }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

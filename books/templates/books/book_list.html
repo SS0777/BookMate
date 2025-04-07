@@ -1,0 +1,58 @@
+{% extends "books/base.html" %}
+
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}모든 책{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="sidebar">
+        <h3>카테고리</h3>
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="{% url 'books:book_list' %}">모든 책</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="book-list">
+        <h2>{% if category %}{{ category.name }}{% else %}모든 책 (알파벳 순){% endif %}</h2>
+        <div class="books">
+            {% for book in books %}
+                <div class="book-item">
+                    {% if is_api_data %}
+                        <a href="{% url 'books:api_book_detail' book.id %}">
+                            {% if book.thumbnail %}
+                                <img src="{{ book.thumbnail }}" alt="{{ book.title }}">
+                            {% else %}
+                                <div class="no-image">이미지 없음</div>
+                            {% endif %}
+                            <h3>{{ book.title }}</h3>
+                            <p class="author">{{ book.authors|join:", " }}</p>
+                            {% if book.rating %}
+                                <p class="rating">평점: {{ book.rating }}</p>
+                            {% endif %}
+                        </a>
+                    {% else %}
+                        <a href="{{ book.get_absolute_url }}">
+                            {% if book.image %}
+                                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                            {% else %}
+                                <div class="no-image">이미지 없음</div>
+                            {% endif %}
+                            <h3>{{ book.title }}</h3>
+                            <p class="author">{{ book.author }}</p>
+                            <p class="rating">평점: {{ book.rating }}</p>
+                        </a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>등록된 책이 없습니다.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

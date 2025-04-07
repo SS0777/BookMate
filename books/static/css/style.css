@@ -1,0 +1,390 @@
+/* 전체 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* 헤더 */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
+}
+
+header h1 a {
+    color: white;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin-top: 0.5rem;
+}
+
+nav ul li {
+    margin-right: 1rem;
+}
+
+nav ul li a {
+    color: #ecf0f1;
+}
+
+nav ul li a:hover {
+    color: #3498db;
+}
+
+/* 메인 컨텐츠 */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sidebar {
+    width: 20%;
+    padding-right: 1rem;
+}
+
+.sidebar h3 {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar li.selected a {
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* 책 목록 */
+.book-list {
+    width: 80%;
+}
+
+.book-list h2 {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.books {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-item {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    overflow: hidden;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.book-item img, .book-item .no-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.book-item .no-image {
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.book-item h3 {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.book-item .author, .book-item .rating {
+    padding: 0 0.5rem 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 책 상세 페이지 */
+.book-detail {
+    display: flex;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.book-image {
+    width: 30%;
+    padding: 1rem;
+}
+
+.book-image img, .book-image .no-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.book-info {
+    width: 70%;
+    padding: 1rem;
+}
+
+.book-info h2 {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.book-info p {
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    margin-top: 1.5rem;
+}
+
+.description h3 {
+    margin-bottom: 0.5rem;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: #3498db;
+    color: white;
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+.back-button:hover {
+    background: #2980b9;
+}
+
+/* 카테고리 목록 */
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.category-item {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 푸터 */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #2c3e50;
+    color: white;
+    margin-top: 2rem;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .sidebar, .book-list {
+        width: 100%;
+    }
+    .sidebar {
+        margin-bottom: 2rem;
+    }
+    .book-detail {
+        flex-direction: column;
+    }
+    .book-image, .book-info {
+        width: 100%;
+    }
+}
+
+/* 검색 폼 스타일 */
+.search-form {
+    background: #f8f9fa;
+    padding: 0.5rem 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.search-form form {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 3px 0 0 3px;
+    font-size: 1rem;
+}
+
+.search-form button {
+    padding: 0.5rem 1rem;
+    background: #3498db;
+    border: 1px solid #3498db;
+    color: white;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background: #2980b9;
+}
+
+/* 검색 결과 스타일 */
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.search-item {
+    display: flex;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.search-image {
+    width: 120px;
+    min-width: 120px;
+    padding: 1rem;
+}
+
+.search-image img, .search-image .no-image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+}
+
+.search-info {
+    flex: 1;
+    padding: 1rem;
+}
+
+.search-info h3 {
+    margin-bottom: 0.5rem;
+}
+
+.search-info p {
+    margin-bottom: 0.5rem;
+}
+
+.view-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #3498db;
+    color: white;
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+
+.view-button:hover {
+    background: #2980b9;
+}
+
+/* 관련 책 섹션 스타일 */
+.related-books, .recommendation-section, .popular-section {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.related-books h3, .recommendation-section h3, .popular-section h3 {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+/* API 책 상세 페이지 스타일 */
+.subtitle {
+    color: #666;
+    font-weight: normal;
+    margin-bottom: 1rem;
+}
+
+/* 관심사 선택기 스타일 */
+.interest-selector {
+    margin-bottom: 2rem;
+}
+
+.interest-selector select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    background: white;
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+    .search-item {
+        flex-direction: column;
+    }
+    
+    .search-image {
+        width: 100%;
+        padding: 1rem 1rem 0;
+    }
+}
+
+/* 베스트셀러 스타일 */
+.bestseller-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.category-section {
+    margin-bottom: 2.5rem;
+}
+
+.category-section h3 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}

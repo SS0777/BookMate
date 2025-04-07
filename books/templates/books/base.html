@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}책 추천 사이트{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'books:book_list' %}">책 추천 사이트</a></h1>
+        
+        <!-- 원래 nav 메뉴 아래에 검색 폼 추가 -->
+        <div class="search-form">
+            <form action="{% url 'books:search_results' %}" method="get">
+                <input type="text" name="q" placeholder="책 검색..." required>
+                <button type="submit">검색</button>
+            </form>
+        </div>
+
+        <!-- nav 메뉴에 추천 링크 추가 -->
+        <nav>
+            <ul>
+                <li><a href="{% url 'books:book_list' %}">모든 책</a></li>
+                <li><a href="{% url 'books:category_list' %}">베스트셀러</a></li>
+                <li><a href="{% url 'books:recommendations' %}">책 추천</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 책 추천 사이트. All rights reserved.</p>
+    </footer>
+</body>
+</html>
